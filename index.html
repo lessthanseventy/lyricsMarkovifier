@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Lyrics Markovifier</title>
+    <link rel="stylesheet" href="./css/main.css" />
+  </head>
+  <body>
+    <div class="columns">
+      <div class="column has-background-primary has-text-centered">
+        <input
+          class="input is-primary"
+          id="inputForm"
+          name="artistInput"
+          type="text"
+          placeholder="Enter Artist"
+        />
+        <button id="inputButton" class="button" type="submit" />Generate Song</button>
+        <div id="songsOutput">Artist's Top Ten Songs</div>
+      </div>
+      <div class="column has-background-info has-text-white is-vcentered">
+        <div class="content is-medium">
+            <div id="loadingBar" class="is-hidden">
+              <h1 class="title">Generating Song...</h1>
+              <progress class="progress is-small is-primary" max="100">15%</progress>
+            </div>
+            <div id="lyrics">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+    <script src="./lib/main.js"></script>
+  </body>
+</html>

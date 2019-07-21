@@ -1,0 +1,90 @@
+{
+  "_from": "bulma-start",
+  "_id": "bulma-start@0.0.3",
+  "_inBundle": false,
+  "_integrity": "sha512-LJchFdLKUAavS4c8qELN+5FoOicttX8fi1+M2mLZQyf+ru8tcooqQ3j9kdJq1p/FeVyfOLi4vtXP1b3k4tQdtA==",
+  "_location": "/bulma-start",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "bulma-start",
+    "name": "bulma-start",
+    "escapedName": "bulma-start",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/bulma-start/-/bulma-start-0.0.3.tgz",
+  "_shasum": "cca27a954506fe59df137ea676045173aac54894",
+  "_spec": "bulma-start",
+  "_where": "/home/andrew/projects/lyricsmarkov",
+  "author": {
+    "name": "Jeremy Thomas",
+    "email": "bbxdesign@gmail.com",
+    "url": "http://jgthms.com"
+  },
+  "bugs": {
+    "url": "https://github.com/jgthms/bulma-start/issues"
+  },
+  "bundleDependencies": [],
+  "deprecated": false,
+  "description": "Start package for Bulma",
+  "dependencies": {
+    "@babel/polyfill": "^7.4.4",
+    "bulma-start": "0.0.3",
+    "cheerio": "^1.0.0-rc.3",
+    "markov-generator": "^1.2.2",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-external-helpers": "^7.2.0",
+    "@babel/plugin-proposal-async-generator-functions": "^7.2.0",
+    "@babel/plugin-transform-async-to-generator": "^7.5.0",
+    "@babel/plugin-transform-regenerator": "^7.4.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/runtime": "^7.5.5",
+    "autoprefixer": "^9.4.7",
+    "babelify": "^10.0.0",
+    "browserify": "^16.3.0",
+    "bulma": "^0.7.2",
+    "cors-anywhere": "^0.4.1",
+    "lite-server": "^2.5.3",
+    "node-sass": "^4.11.0",
+    "npm-run-all": "^4.1.5",
+    "postcss-cli": "^6.1.1",
+    "watchify": "^3.11.1"
+  },
+  "homepage": "https://github.com/jgthms/bulma-start#readme",
+  "keywords": [
+    "sass",
+    "bulma",
+    "css",
+    "start"
+  ],
+  "license": "MIT",
+  "name": "bulma-start",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jgthms/bulma-start.git"
+  },
+  "scripts": {
+    "css-build": "node-sass _sass/main.scss css/main.css --source-map-embed --source-map-contents",
+    "css-deploy": "npm run css-build && npm run css-postcss",
+    "css-postcss": "postcss --use autoprefixer --output css/main.css css/main.css",
+    "css-watch": "npm run css-build -- --watch",
+    "deploy": "npm run css-deploy && npm run js-build",
+    "js-build": "browserify _javascript/main.js -d -o lib/main.js",
+    "js-watch": "watchify _javascript/main.js -d -v -o lib/main.js",
+    "start": "npm-run-all --parallel css-watch js-watch"
+  },
+  "version": "0.0.3",
+  "browserslist": "> 0.25%, not dead"
+}
