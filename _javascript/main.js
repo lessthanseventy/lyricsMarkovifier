@@ -12,10 +12,19 @@ function init() {
   document.getElementById("inputButton").addEventListener("click", onSubmit);
 
   async function onSubmit() {
-    let element = document.getElementById("loadingBar");
-    element.classList.remove("is-hidden");
+    let lyrics = document.getElementById("lyrics");
+    while (lyrics.firstChild) {
+      lyrics.removeChild(lyrics.firstChild);
+    }
+    let loadingBar = document.getElementById("loadingBar");
+    loadingBar.classList.remove("is-hidden");
+    let lyricsColumn = document.getElementById("lyricsColumn");
+    let inputColumn = document.getElementById("inputColumn");
+    inputColumn.classList.remove("is-offset-3");
+    lyricsColumn.classList.remove("is-hidden");
     let inputValue = document.getElementById("inputForm").value.toString();
     await artistByName(inputValue)
+      .then(res => songsOutput(res))
       .then(res => loopForLyrics(res))
       .then(lyrics => generateSong(lyrics));
   }
@@ -64,7 +73,6 @@ Get song by ID
   async function artistByName(name) {
     const slug = _geniusSlug(name);
     const id = await _scrapeArtistPageForArtistID(slug);
-    console.log(id);
     return songsByArtist(id);
   }
 
@@ -122,7 +130,20 @@ Get song by ID
       .pop();
     return id;
   }
-
+  /* Populate list of songs */
+  async function songsOutput(arrayOfSongs) {
+    let html = `<div class="content"><h1 id="songsHeading" class="has-text-info">${
+      arrayOfSongs[9].primary_artist.name
+    } Top Songs</h1><ol class="is-medium" type="1">`;
+    let elem = document.getElementById("songsOutput");
+    for (let i = 0; i < arrayOfSongs.length; i++) {
+      html +=
+        "<li>" + arrayOfSongs[i].full_title.replace(/ by.*/g, "") + "</li>";
+    }
+    html += "</ol></div>";
+    elem.innerHTML = html;
+    return arrayOfSongs;
+  }
   /* Loop through array of song ids and return cleaned array of strings to pass to Markov Generator */
   async function loopForLyrics(arr) {
     let temp = [];
@@ -131,7 +152,7 @@ Get song by ID
       await song(arr[i].id, { fetchLyrics: true }).then(function(res) {
         /* remove [Verse] and such and any parentheses */
         temp.push(
-          res.lyrics.replace(/ *\[[^\]]*\] */g, "").replace(/[\(\)] /g, "")
+          res.lyrics.replace(/ *\[[^\]]*\] */g, "").replace(/[\(\)]/g, "")
         );
       });
     }
@@ -147,11 +168,19 @@ Get song by ID
 
   /* Generate song using passed in array of lyrics */
   async function generateSong(arrayOfLyrics) {
-    let html = "";
-    for (let i = 0; i < 30; i++) {
+    let titleMarkov = new Markov({
+      input: arrayOfLyrics,
+      minLength: 5,
+      maxLength: 7
+    });
+    let title = titleMarkov.makeChain();
+    console.log(title);
+    let html = `<div class="is-size-7-mobile"><h1 class="has-text-primary">${title}</h1>2`;
+    for (let i = 0; i < 24; i++) {
       let markov = new Markov({
         input: arrayOfLyrics,
-        minLength: 8
+        minLength: 9,
+        maxLength: 13
       });
       let sentence = markov.makeChain();
       if (i != 0 && i % 4 == 0) {
@@ -162,6 +191,4 @@ Get song by ID
     document.getElementById("loadingBar").classList.add("is-hidden");
     document.getElementById("lyrics").innerHTML = html;
   }
-  // test
-  //   .then(res => loopForLyrics(res))
 }

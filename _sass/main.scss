@@ -28,15 +28,13 @@ $primary-invert: $pink-invert;
 
 @import "../node_modules/bulma/bulma";
 
-#artistInput {
-  width: 60%;
+@media only screen and (max-width: 768px) {
+  .columns {
+    margin: 0;
+  }
 }
 
-#loadingBar {
-  margin-top: 50vh;
-}
-
-.column {
+.columns {
+  max-width: 100vw;
   min-height: 100vh;
-  margin-right: 10px;
 }
