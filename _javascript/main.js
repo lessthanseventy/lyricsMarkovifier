@@ -30,7 +30,7 @@ function init() {
   }
 
   async function _request(path) {
-    const url = `https://api.genius.com/${path}`;
+    const url = `https://cryptic-hamlet-30617.herokuapp.com/https://api.genius.com/${path}`;
 
     // Fetch result and parse it as JSON
     const body = await fetch(url);
@@ -93,8 +93,8 @@ Get song by ID
   /* Scrape song lyrics */
 
   async function _scrapeLyrics(url) {
-    const newUrl = `http://localhost:8080/${url}`;
-    const response = await fetch(newUrl);
+    let corsUrl = `https://cryptic-hamlet-30617.herokuapp.com/${url}`;
+    const response = await fetch(corsUrl);
     const text = await response.text();
     const $ = cheerio.load(text);
     return $(".lyrics")
@@ -121,7 +121,7 @@ Get song by ID
   /* Scrape artist page to retrieve artist ID */
 
   async function _scrapeArtistPageForArtistID(slug) {
-    const url = `http://localhost:8080/genius.com/artists/${slug}`;
+    const url = `https://cryptic-hamlet-30617.herokuapp.com/https://genius.com/artists/${slug}`;
     const html = await fetch(url).then(res => res.text());
     const $ = cheerio.load(html);
     const id = $('meta[name="newrelic-resource-path"]')
@@ -132,9 +132,9 @@ Get song by ID
   }
   /* Populate list of songs */
   async function songsOutput(arrayOfSongs) {
-    let html = `<div class="content"><h1 id="songsHeading" class="has-text-info">${
+    let html = `<div class="content"><h1 id="songsHeading" class="has-text-link">${
       arrayOfSongs[9].primary_artist.name
-    } Top Songs</h1><ol class="is-medium" type="1">`;
+    } Top Songs</h1><ol class="is-medium has-text-link" type="1">`;
     let elem = document.getElementById("songsOutput");
     for (let i = 0; i < arrayOfSongs.length; i++) {
       html +=
@@ -175,7 +175,7 @@ Get song by ID
     });
     let title = titleMarkov.makeChain();
     console.log(title);
-    let html = `<div class="is-size-7-mobile"><h1 class="has-text-primary">${title}</h1>2`;
+    let html = `<div class="is-size-7-mobile"><h1 class="has-text-primary">${title}</h1>`;
     for (let i = 0; i < 24; i++) {
       let markov = new Markov({
         input: arrayOfLyrics,
