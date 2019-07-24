@@ -132,9 +132,9 @@ Get song by ID
   }
   /* Populate list of songs */
   async function songsOutput(arrayOfSongs) {
-    let html = `<div class="content"><h1 id="songsHeading" class="has-text-link">${
+    let html = `<div class="content"><h1 id="songsHeading" class="has-text-white">${
       arrayOfSongs[9].primary_artist.name
-    } Top Songs</h1><ol class="is-medium has-text-link" type="1">`;
+    } Top Songs</h1><ol class="is-medium has-text-white" type="1">`;
     let elem = document.getElementById("songsOutput");
     for (let i = 0; i < arrayOfSongs.length; i++) {
       html +=
